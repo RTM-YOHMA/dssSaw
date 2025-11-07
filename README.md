@@ -97,4 +97,3 @@ NPM: `npm run lint`
 - `start`: menjalankan server produksi hasil build
 - `lint`: menjalankan ESLint
 
-Selamat ngoding! Jika Anda butuh dev container atau pipeline CI, beri tahu—kita bisa tambahkan konfigurasi tersebut.
