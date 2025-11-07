@@ -1,30 +1,100 @@
-# Decision Support System
+# Decision Support System — Setup Lokal
 
-*Automatically synced with your [v0.app](https://v0.app) deployments*
+Panduan singkat untuk menyiapkan proyek ini di mesin lokal Anda.
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/ahmads-projects-263f25ef/v0-decision-support-system)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-black?style=for-the-badge)](https://v0.app/chat/rsm0Tqq252D)
+## Persyaratan
 
-## Overview
+- Node.js 20 LTS (disarankan) atau 22
+- Pengelola paket: gunakan PNPM (disarankan) atau NPM
+  - Aktifkan PNPM via Corepack: `corepack enable` lalu `corepack prepare pnpm@latest --activate`
 
-This repository will stay in sync with your deployed chats on [v0.app](https://v0.app).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.app](https://v0.app).
+## Instalasi
 
-## Deployment
+Di direktori proyek (mis. `e:\dss-SAW`):
 
-Your project is live at:
+Dengan PNPM (disarankan)
 
-**[https://vercel.com/ahmads-projects-263f25ef/v0-decision-support-system](https://vercel.com/ahmads-projects-263f25ef/v0-decision-support-system)**
+```bash
+pnpm install
+```
 
-## Build your app
+Atau dengan NPM
 
-Continue building your app on:
+```bash
+npm install
+```
 
-**[https://v0.app/chat/rsm0Tqq252D](https://v0.app/chat/rsm0Tqq252D)**
+## Menjalankan Aplikasi (Development)
 
-## How It Works
+PNPM:
 
-1. Create and modify your project using [v0.app](https://v0.app)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+```bash
+pnpm dev
+```
+
+NPM:
+
+```bash
+npm run dev
+```
+
+Buka: http://localhost:3000
+
+Port berbeda (opsional): `pnpm dev -- -p 3001` atau `npm run dev -- -p 3001`.
+
+## Build & Start (Produksi Lokal)
+
+PNPM:
+
+```bash
+pnpm build
+pnpm start
+```
+
+NPM:
+
+```bash
+npm run build
+npm start
+```
+
+## Lint
+
+PNPM: `pnpm lint`
+
+NPM: `npm run lint`
+
+## Konfigurasi & Catatan
+
+- Tidak ada `.env` yang wajib secara default.
+- Tailwind CSS v4 sudah terpasang melalui `postcss.config.mjs` dan `app/globals.css`.
+- Alias path: lihat `tsconfig.json` (alias `@/*` menunjuk ke akar proyek).
+- Versi utama: Next.js 16, React 19, TypeScript 5.
+
+## Pemecahan Masalah (Troubleshooting)
+
+- Konflik peer dependency saat NPM install (ERESOLVE)
+  - Proyek ini sempat memiliki paket `vaul` yang tidak mendukung React 19. Dependensi tersebut sudah dihapus dari `package.json`.
+  - Jika Anda masih menjumpai error serupa, lakukan pembersihan berikut lalu install ulang:
+    - PowerShell (Windows):
+      ```powershell
+      Remove-Item -Recurse -Force node_modules, package-lock.json
+      ```
+      Untuk PNPM: hapus juga `pnpm-lock.yaml` hanya jika Anda ingin pindah ke NPM sepenuhnya.
+    - Kemudian jalankan kembali: `pnpm install` (disarankan) atau `npm install`.
+
+- Cache/build bermasalah atau perubahan tak terdeteksi
+  - Hapus folder `.next`: `Remove-Item -Recurse -Force .next`
+  - Install ulang dependensi seperti langkah di atas, lalu jalankan dev server lagi.
+
+- Port 3000 sudah terpakai
+  - Jalankan dengan port lain: `pnpm dev -- -p 3001` atau `npm run dev -- -p 3001`.
+
+## Skrip yang Tersedia
+
+- `dev`: menjalankan Next.js di mode development
+- `build`: membangun aplikasi untuk produksi
+- `start`: menjalankan server produksi hasil build
+- `lint`: menjalankan ESLint
+
+Selamat ngoding! Jika Anda butuh dev container atau pipeline CI, beri tahu—kita bisa tambahkan konfigurasi tersebut.
